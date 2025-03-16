@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DANANTARA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #result {
+            font-size: 1.2em;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .fixed-date {
+            color: #666;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DANANTARA</h1>
+        <div class="fixed-date">Sejak 24 Februari 2025 10:00 WIB</div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Tanggal awal yang sudah ditentukan (24 Februari 2025 10:00 WIB)
+        const fixedStartDate = new Date('2025-02-24T00:10:00+07:00'); // +07:00 untuk WIB
+        
+        function updateTime() {
+            const resultDiv = document.getElementById('result');
+            const now = new Date();
+            const diff = now - fixedStartDate;
+            
+            if (diff < 0) {
+                resultDiv.innerHTML = 'Tanggal yang ditentukan masih belum tiba!';
+                return;
+            }
+
+            let totalSeconds = Math.floor(diff / 1000);
+
+            const years = Math.floor(totalSeconds / 31557600);
+            totalSeconds %= 31557600;
+
+            const months = Math.floor(totalSeconds / 2629800);
+            totalSeconds %= 2629800;
+
+            const weeks = Math.floor(totalSeconds / 604800);
+            totalSeconds %= 604800;
+
+            const days = Math.floor(totalSeconds / 86400);
+            totalSeconds %= 86400;
+
+            const hours = Math.floor(totalSeconds / 3600);
+            totalSeconds %= 3600;
+
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+
+            resultDiv.innerHTML = `
+                <p>Waktu yang telah berlalu:</p>
+                <p>${years} Tahun, ${months} Bulan, ${weeks} Minggu, ${days} Hari, 
+                ${hours} Jam, ${minutes} Menit, ${seconds} Detik</p>
+            `;
+        }
+
+        // Update setiap 1 detik
+        setInterval(updateTime, 1000);
+        // Jalankan pertama kali
+        updateTime();
+    </script>
+</body>
+</html>
